@@ -335,7 +335,7 @@ def parse_resume_step_from_filename(filename):
     except ValueError:
         return 0
 
-
+# modified 24/2/21
 def get_blob_logdir():
     # You can change this to be a separate path to save checkpoints to
     # a blobstore or some external drive.
