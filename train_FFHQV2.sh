@@ -8,12 +8,12 @@ clean_crlf() {
 # 环境变量和参数初始化
 OPENAI_LOGDIR=$(clean_crlf "output_mdtv2_s2")
 NUM_GPUS=8
-IMAGE_SIZE=1024
+IMAGE_SIZE=256
 MASK_RATIO=$(clean_crlf "0.30")
 DECODE_LAYER=$(clean_crlf "4")
 MODEL=$(clean_crlf "MDTv2_S_2")
 DIFFUSION_STEPS=1000
-BATCH_SIZE=16
+BATCH_SIZE=32
 DATA_PATH=$(clean_crlf "/public/hezhenliang/users/gaoge/Data/ConvertedFFHQ")
 #CHECKPOINT_PATH="/public/hezhenliang/users/gaoge/VIPLFaceMDT/VIPLMDT/checkpoint/FFHQ.pt"
 # 构建命令参数
@@ -24,4 +24,5 @@ TRAIN_FLAGS="--batch_size $BATCH_SIZE"
 # 执行Python命令
 
 cd /public/hezhenliang/users/gaoge/VIPLFaceMDT/VIPLMDT
-python -m torch.distributed.launch --nproc_per_node=$NUM_GPUS scripts/image_train.py --data_dir="$DATA_PATH" $MODEL_FLAGS $DIFFUSION_FLAGS $TRAIN_FLAGS
+#python -m torch.distributed.launch --nproc_per_node=$NUM_GPUS scripts/image_train.py --data_dir="$DATA_PATH" $MODEL_FLAGS $DIFFUSION_FLAGS $TRAIN_FLAGS
+python -m torch.distributed.run --nproc_per_node=$NUM_GPUS scripts/image_train.py --data_dir="$DATA_PATH" $MODEL_FLAGS $DIFFUSION_FLAGS $TRAIN_FLAGS
