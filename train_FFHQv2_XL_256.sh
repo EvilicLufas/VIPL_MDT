@@ -1,28 +1,28 @@
 #!/bin/bash
 
-# 函数用于清理输入变量中的\r字符
+# 鍑芥暟鐢ㄤ簬娓呯悊杈撳叆鍙橀噺涓殑\r瀛楃
 clean_crlf() {
     echo "$1" | sed 's/\r//g'
 }
 
-# 环境变量和参数初始化
-OPENAI_LOGDIR=$(clean_crlf "output_mdtv2_s2")
+# 鐜鍙橀噺鍜屽弬鏁板垵濮嬪寲
+OPENAI_LOGDIR=$(clean_crlf "output_mdtv2_xl2")
 NUM_GPUS=8
 IMAGE_SIZE=256
 MASK_RATIO=$(clean_crlf "0.30")
 DECODE_LAYER=$(clean_crlf "4")
-MODEL=$(clean_crlf "MDTv2_S_2")
+MODEL=$(clean_crlf "MDTv2_XL_2")
 DIFFUSION_STEPS=1000
-BATCH_SIZE=32
+BATCH_SIZE=8
 DATA_PATH=$(clean_crlf "/public/hezhenliang/users/gaoge/Data/ConvertedFFHQ_class")
 #CHECKPOINT_PATH="/public/hezhenliang/users/gaoge/VIPLFaceMDT/VIPLMDT/checkpoint/FFHQ.pt"
-# 构建命令参数
+# 鏋勫缓鍛戒护鍙傛暟
 MODEL_FLAGS="--image_size $IMAGE_SIZE --mask_ratio $MASK_RATIO --decode_layer $DECODE_LAYER --model $MODEL"
 DIFFUSION_FLAGS="--diffusion_steps $DIFFUSION_STEPS"
 TRAIN_FLAGS="--batch_size $BATCH_SIZE"
 #CHECKPOINT_FLAG="--resume_checkpoint $CHECKPOINT_PATH"
-# 执行Python命令
+# 鎵цPython鍛戒护
 
-cd /public/hezhenliang/users/gaoge/VIPLFaceMDT/VIPLMDT
+cd /public/hezhenliang/users/gaoge/VIPLFaceMDT/VIPL_MDT
 #python -m torch.distributed.launch --nproc_per_node=$NUM_GPUS scripts/image_train.py --data_dir="$DATA_PATH" $MODEL_FLAGS $DIFFUSION_FLAGS $TRAIN_FLAGS
 python -m torch.distributed.run --nproc_per_node=$NUM_GPUS scripts/image_train.py --data_dir="$DATA_PATH" $MODEL_FLAGS $DIFFUSION_FLAGS $TRAIN_FLAGS

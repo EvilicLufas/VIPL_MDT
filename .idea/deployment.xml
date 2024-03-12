@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="hezhenliang@10.206.0.6:22" uploadOnCheckin="f821c3c3-256d-4afc-a771-fc452055379a">
+  <component name="PublishConfigData" autoUpload="Always" serverName="hezhenliang@10.206.0.6:22" uploadOnCheckin="f821c3c3-256d-4afc-a771-fc452055379a" confirmBeforeUploading="false">
+    <option name="confirmBeforeUploading" value="false" />
     <serverData>
       <paths name="hezhenliang@10.206.0.6:22">
         <serverdata>

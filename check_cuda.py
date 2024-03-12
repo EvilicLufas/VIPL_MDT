@@ -19,3 +19,6 @@ if cuda_available:
         print(f"GPU {i}: {torch.cuda.get_device_name(i)}")
 else:
     print("CUDA is not available. Check your installation.")
+
+
+

@@ -141,7 +141,12 @@ class TrainLoop:
         # model = AutoencoderKL.from_pretrained("stabilityai/sd-vae-ft-mse").to(dist_util.dev())
         model = AutoencoderKL.from_pretrained("/public/hezhenliang/users/gaoge/VIPLFaceMDT/VIPL_MDT/model").to(
             dist_util.dev())
+
+        # The compile function is allowed only in pytorch>=2.0 while the adan repo is compiled in pytorch 1.3
+        # So I avoid the error by this  Modified 20240306
+
         model = th.compile(model)
+
         self.first_stage_model = model.eval()
         self.first_stage_model.train = False
         for param in self.first_stage_model.parameters():
@@ -340,7 +345,7 @@ def get_blob_logdir():
     # You can change this to be a separate path to save checkpoints to
     # a blobstore or some external drive.
     # return logger.get_dir()
-    return "/public/hezhenliang/users/gaoge/VIPLFaceMDT/VIPL_MDT/checkpoint/"
+    return "/public/hezhenliang/users/gaoge/VIPLFaceMDT/VIPL_MDT/XL_classes_checkpoint/"
 
 
 def find_resume_checkpoint():
